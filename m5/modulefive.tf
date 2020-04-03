@@ -7,7 +7,7 @@ variable "aws_secret_key" {}
 variable "private_key_path" {}
 variable "key_name" {}
 variable "region" {
-  default = "us-east-1"
+  default = "us-east-2"
 }
 variable "network_address_space" {
   default = "10.1.0.0/16"
@@ -406,6 +406,7 @@ EOF
   resource "aws_s3_bucket" "web_bucket" {
     bucket        = local.s3_bucket_name
     acl           = "private"
+    # Means that Terraform can destroy the bucket even if its not empty
     force_destroy = true
 
     tags = merge(local.common_tags, { Name = "${var.environment_tag}-web-bucket" })

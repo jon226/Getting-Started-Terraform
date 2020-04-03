@@ -2,6 +2,7 @@
 # VARIABLES
 ##################################################################################
 
+# AWS
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "private_key_path" {}
@@ -9,6 +10,12 @@ variable "key_name" {}
 variable "region" {
   default = "us-east-1"
 }
+
+# Azure
+variable "arm_subscription_id" {}
+variable "arm_principal" {}
+variable "arm_password" {}
+variable "tenant_id" {}
 
 variable "network_address_space" {
   default = "10.1.0.0/16"
@@ -18,10 +25,6 @@ variable "billing_code_tag" {}
 variable "environment_tag" {}
 variable "bucket_name_prefix" {}
 
-variable "arm_subscription_id" {}
-variable "arm_principal" {}
-variable "arm_password" {}
-variable "tenant_id" {}
 variable "dns_zone_name" {}
 variable "dns_resource_group" {}
 
@@ -146,6 +149,8 @@ resource "aws_route_table_association" "rta-subnet" {
 }
 
 # SECURITY GROUPS #
+
+# Load balancer security group 
 resource "aws_security_group" "elb-sg" {
   name   = "nginx_elb_sg"
   vpc_id = aws_vpc.vpc.id
